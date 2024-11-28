@@ -11,14 +11,14 @@ import Login from './Pages/Login'; // Sahi import
 // import Orders from './Pages/Orders';
 import Footer from './Pages/Footer';
 import MyOrders from './Pages/MyOrders';
-import { useAppContext } from './context/AppContext';
+// import { useAppContext } from './context/AppContext';
 
 // import Checkout from './Pages/Checkout';
 // import Footer from './Pages/Footer';
 
 const App = ()=> {
-  const { state } = useAppContext();
-  console.log('Current user state:', state.user);
+  // const { state } = useAppContext();
+  // console.log('Current user state:', state.user);
 
 
   return (
@@ -27,7 +27,8 @@ const App = ()=> {
       <Routes>
         {/* Define routes */}
         <Route path="/" element={<Home />} />
-        <Route path="/my-orders" element={<MyOrders userId={state.user?.id} />} />
+        <Route path="/my-orders" element={<MyOrders />} />
+        {/* <Route path="/my-orders" element={<MyOrders userId={state.user?.id} />} /> */}
 
         {/* <Route path="/my-orders" element={<MyOrders userId={userId} />} /> */}
         {/* <Route path="/my-orders" element={<MyOrders />} /> */}

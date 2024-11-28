@@ -11,33 +11,30 @@ const Checkout = () => {
 
     const handleCheckout = async () => {
         try {
-            const email = 'aftab@gmail.com'; // Replace with actual logged-in user's email
+            const email = 'aftab@gmail.com';  // Replace with actual logged-in user's email
             const items = state.basket.map((item) => ({
                 id: item.id,
                 title: item.title,
                 price: item.price,
                 image: item.image,
                 rating: item.rating,
-                // Assuming quantity is stored in `item.quantity` or set it to a default value
                 quantity: item.quantity || 1,  // Default to 1 if no quantity is set
                 total: item.price * (item.quantity || 1),  // Calculating total price for each item
             }));
     
-            console.log(items); // Debugging items array before sending
+            // console.log(items); // Debugging items array before sending
     
-            // Send basket data to backend
+            // Send basket data along with email to backend
             const response = await axios.post('http://localhost:4000/api/checkout', {
-                email,
-                items,
-                
+                email,  // Send the email here
+                checkout_data: items,  
+                orderHistory: items, 
             });
-
-            console.log(response.data);  // Check response data
-
+    
+            // console.log(response.data);  // Check response data
     
             if (response.status === 200) {
                 alert('Order placed successfully!');
-                // Clear the basket in context
                 dispatch({ type: 'CLEAR_BASKET' });
             }
         } catch (error) {
@@ -45,53 +42,7 @@ const Checkout = () => {
             alert('Failed to place the order.');
         }
     };
-    
-
-
-
-    // const handleCheckout = async () => {
-    //     try {
-    //         const email = 'aftab@gmail.com'; // Replace with actual logged-in user's email
-
-
-    //         const items = state.basket.map((item) => {
-    //             console.log(item); // Debugging each item
-    //             return {
-    //                 id: item.id,
-    //                 title: item.title,
-    //                 price: item.price,
-    //                 image: item.image,
-    //                 rating: item.rating,
-    //                 total: item.total,
-    //             };
-    //         });
-            
-    //         // const items = state.basket.map((item) => ({
-    //         //     id: item.id,
-    //         //     title: item.title,
-    //         //     price: item.price,
-    //         //     image: item.image,
-    //         //     rating: item.rating,
-    //         //     total: item.total, // Assuming quantity is stored as `item.quantity`
-    //         // }));
-
-
-    //         // Send basket data to backend
-    //         const response = await axios.post('http://localhost:4000/api/checkout', {
-    //             email,
-    //             items,
-    //         });
-
-    //         if (response.status === 200) {
-    //             alert('Order placed successfully!');
-    //             // Clear the basket in context
-    //             dispatch({ type: 'CLEAR_BASKET' });
-    //         }
-    //     } catch (error) {
-    //         console.error('Error during checkout:', error);
-    //         alert('Failed to place the order.');
-    //     }
-    // };
+        
 
     return (
         <Button variant="contained" color="primary" onClick={handleCheckout}>

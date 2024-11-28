@@ -57,7 +57,7 @@ const Navbar = () => {
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <Button color="inherit" onClick={() => navigate('/')}>Home</Button>
                         {authToken && (
-                            <Button color="inherit" onClick={() => navigate('/orders')}>My Orders</Button>
+                            <Button color="inherit" onClick={() => navigate('/my-orders')}>My Orders</Button>
                         )}
                         {authToken ? (
                             <>
@@ -102,7 +102,7 @@ const Navbar = () => {
                         <ListItemText primary="Home" />
                     </ListItem>
                     {authToken && (
-                        <ListItem button onClick={() => handleDrawerNavigation('/orders')}>
+                        <ListItem button onClick={() => handleDrawerNavigation('/my-orders')}>
                             <ListItemText primary="My Orders" />
                         </ListItem>
                     )}

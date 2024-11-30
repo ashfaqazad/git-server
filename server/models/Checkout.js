@@ -38,10 +38,8 @@ const CheckoutSchema = new mongoose.Schema({
         required: true
     },
     checkout_data: [ItemSchema],  // Using ItemSchema here for items
-    orderHistory: { 
-        type: [ItemSchema], // Array of items for order history
-        default: [undefined] 
-    }  // Default empty array for orderHistory
+    
+     // Default empty array for orderHistory
 });
 
 const Checkout = mongoose.model('Checkout', CheckoutSchema);

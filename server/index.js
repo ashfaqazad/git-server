@@ -9,15 +9,16 @@ const cartRoutes = require('./routes/CartData');
 const checkoutRoutes = require('./routes/checkout');
 const myOrderRoutes = require('./routes/checkout');
 
-
 const app = express();
+
 const PORT = process.env.PORT || 4000; // Default port 4000
 
 const cookieParser = require('cookie-parser');
 
 // Middleware
-app.use(express.json());
 app.use(cookieParser());
+
+app.use(express.json());
 
 const corsOptions = {
   origin: 'http://localhost:3000',

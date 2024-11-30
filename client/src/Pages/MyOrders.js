@@ -4,10 +4,17 @@ import axios from 'axios';
 const MyOrders = () => {
     const [orders, setOrders] = useState([]);
 
+
+    
+
     useEffect(() => {
         const fetchOrders = async () => {
+            const email = localStorage.getItem('userEmail'); // User email localStorage se fetch karein
+
             try {
-                const response = await axios.post('http://localhost:4000/api/myOrderData', { email: 'aftab@gmail.com' });
+                const response = await axios.post('http://localhost:4000/api/myOrderData', { 
+                email});
+
                 console.log('Response Data:', response.data);
                 setOrders(response.data.orderdata || []);
             } catch (error) {
@@ -35,7 +42,7 @@ const MyOrders = () => {
                                 <p>Total: Rs. {item.total}</p>
                             </div>
                         ))}
-                        <h4>Order History:</h4>
+                        {/* <h4>Order History:</h4>
                         {order.orderHistory.map((item) => (
                             <div key={item.id} style={{ marginBottom: '10px' }}>
                                 <img src={item.image} alt={item.title} style={{ width: '100px', height: '100px' }} />
@@ -44,7 +51,7 @@ const MyOrders = () => {
                                 <p>Rating: {item.rating}</p>
                                 <p>Total: Rs. {item.total}</p>
                             </div>
-                        ))}
+                        ))} */}
                     </div>
                 ))
             ) : (

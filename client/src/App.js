@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Navbar from './Components/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,22 +11,31 @@ import Login from './Pages/Login'; // Sahi import
 // import Orders from './Pages/Orders';
 import Footer from './Pages/Footer';
 import MyOrders from './Pages/MyOrders';
+// import SocialIcons from './Components/SocialIcons';
 // import { useAppContext } from './context/AppContext';
 
 // import Checkout from './Pages/Checkout';
 // import Footer from './Pages/Footer';
 
 const App = ()=> {
-  // const { state } = useAppContext();
-  // console.log('Current user state:', state.user);
+
+
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Update the search query
+  const handleSearch = (query) => {
+      setSearchQuery(query);
+  };
+
 
 
   return (
     <Router>
-      <Navbar />
+            <Navbar onSearch={handleSearch} />
+            {/* <SocialIcons /> */}
       <Routes>
         {/* Define routes */}
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home searchQuery={searchQuery} />} />
         <Route path="/my-orders" element={<MyOrders />} />
         {/* <Route path="/my-orders" element={<MyOrders userId={state.user?.id} />} /> */}
 

@@ -3,32 +3,31 @@ import ProductItem from '../Pages/ProductItem';
 import axios from 'axios';
 import { Grid, Box, Typography } from '@mui/material';
 
-const Home = () => {
-    const [eShop, setEshop] = useState([]); // State for fetched data
-    const [error, setError] = useState(null); // For error state
+const Home = ({ searchQuery }) => {
+    const [eShop, setEshop] = useState([]);
+    const [error, setError] = useState(null);
 
-    // Fetch data from MongoDB Atlas
     const loadData = async () => {
         try {
             const response = await axios.get("http://localhost:4000/api/eshop");
-            console.log('Response from backend:', response.data); // Log for debugging
-
-            // Check response structure
             if (response.data && Array.isArray(response.data.eShop)) {
-                setEshop(response.data.eShop); // Set fetched products
+                setEshop(response.data.eShop);
             } else {
                 throw new Error("Invalid data structure");
             }
         } catch (error) {
-            console.error("Error fetching data:", error);
             setError("Failed to fetch products.");
         }
     };
 
-    // Load data when component mounts
     useEffect(() => {
         loadData();
     }, []);
+
+    // Filter products based on search query
+    const filteredProducts = eShop.filter((item) =>
+        item.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     if (error) {
         return <Typography variant="h6" color="error">{error}</Typography>;
@@ -36,20 +35,22 @@ const Home = () => {
 
     return (
         <div>
-            {/* Hero Image */}
-            <Box sx={{ width: '100%' }}>
-                <img
-                    src="/Images/E-image2.webp"
-                    alt="eCommerce"
-                    style={{ width: "100%", height: "400px" }}
-                />
-            </Box>
 
-            {/* Product List */}
+             {/* Hero Image */}
+             <Box sx={{ width: '100%' }}>
+                 <img
+                    src="/Images/E-image2.webp"
+                     alt="eCommerce"
+                     style={{ width: "100%", height: "400px" }}
+                 />
+             </Box>
+
+
+
             <Box sx={{ my: 5 }}>
                 <Grid container spacing={4}>
-                    {eShop.length > 0 ? (
-                        eShop.map((item) => (
+                    {filteredProducts.length > 0 ? (
+                        filteredProducts.map((item) => (
                             <Grid item xs={12} md={6} lg={4} key={item._id}>
                                 <ProductItem
                                     id={item._id}
@@ -57,12 +58,12 @@ const Home = () => {
                                     image={item.image}
                                     rating={item.rating}
                                     price={item.price}
-                                    actionType="add" // Add Product functionality
+                                    actionType="add"
                                 />
                             </Grid>
                         ))
                     ) : (
-                        <Typography variant="h6">No products available</Typography>
+                        <Typography variant="h6">No products found</Typography>
                     )}
                 </Grid>
             </Box>
@@ -71,6 +72,104 @@ const Home = () => {
 };
 
 export default Home;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useEffect, useState } from 'react';
+// import ProductItem from '../Pages/ProductItem';
+// import axios from 'axios';
+// import { Grid, Box, Typography } from '@mui/material';
+
+// const Home = () => {
+//     const [eShop, setEshop] = useState([]); // State for fetched data
+//     const [error, setError] = useState(null); // For error state
+
+//     // Fetch data from MongoDB Atlas
+//     const loadData = async () => {
+//         try {
+//             const response = await axios.get("http://localhost:4000/api/eshop");
+//             console.log('Response from backend:', response.data); // Log for debugging
+
+//             // Check response structure
+//             if (response.data && Array.isArray(response.data.eShop)) {
+//                 setEshop(response.data.eShop); // Set fetched products
+//             } else {
+//                 throw new Error("Invalid data structure");
+//             }
+//         } catch (error) {
+//             console.error("Error fetching data:", error);
+//             setError("Failed to fetch products.");
+//         }
+//     };
+
+//     // Load data when component mounts
+//     useEffect(() => {
+//         loadData();
+//     }, []);
+
+//     if (error) {
+//         return <Typography variant="h6" color="error">{error}</Typography>;
+//     }
+
+//     return (
+//         <div>
+//             {/* Hero Image */}
+//             <Box sx={{ width: '100%' }}>
+//                 <img
+//                     src="/Images/E-image2.webp"
+//                     alt="eCommerce"
+//                     style={{ width: "100%", height: "400px" }}
+//                 />
+//             </Box>
+
+//             {/* Product List */}
+//             <Box sx={{ my: 5 }}>
+//                 <Grid container spacing={4}>
+//                     {eShop.length > 0 ? (
+//                         eShop.map((item) => (
+//                             <Grid item xs={12} md={6} lg={4} key={item._id}>
+//                                 <ProductItem
+//                                     id={item._id}
+//                                     title={item.title}
+//                                     image={item.image}
+//                                     rating={item.rating}
+//                                     price={item.price}
+//                                     actionType="add" // Add Product functionality
+//                                 />
+//                             </Grid>
+//                         ))
+//                     ) : (
+//                         <Typography variant="h6">No products available</Typography>
+//                     )}
+//                 </Grid>
+//             </Box>
+//         </div>
+//     );
+// };
+
+// export default Home;
 
 
 

@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "server/index.js"
+    }
+  ],
+  "env": {
+    "JWT_SECRET": "your_jwt_secret_key",
+    "PORT": "4000",
+    "DATABASE": "mongodb+srv://ashfaqazad:Yusraboto333@cluster0.dlgwnxv.mongodb.net/fastfood?retryWrites=true&w=majority"
+  }
+}

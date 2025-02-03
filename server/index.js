@@ -21,7 +21,7 @@ app.use(cookieParser());
 app.use(express.json());
 
 const corsOptions = {
-  origin: 'http://localhost:3003',
+  origin: 'https://e-commerce.bedarimillat.com',
   credentials: true,
 };
 
